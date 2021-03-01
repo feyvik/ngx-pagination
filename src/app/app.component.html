@@ -1,14 +1,56 @@
 <!-- Toolbar -->
-<ul>
-  <li
+<style>
+  .pagi {
+    text-align: center;
+  }
+  div {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 80%;
+    min-height: 80vh;
+    padding: 0 10px;
+    margin: auto;
+    margin-bottom: 10px;
+  }
+  p {
+    width: 30%;
+    color: #fff;
+    background: rebeccapurple;
+    list-style: none;
+    margin: 10px 10px;
+    padding: 20px 0 0 10px;
+    min-height: 20vh;
+  }
+  img {
+    width: 40%;
+    height: 6vh;
+  }
+</style>
+
+<div>
+  <p
     *ngFor="
-      let item of collection | paginate: { itemsPerPage: 10, currentPage: p }
+      let item of passenger
+        | paginate
+          : {
+              itemsPerPage: itemsPerPage,
+              currentPage: page,
+              totalItems: totalItems
+            }
     "
   >
-    ...
-  </li>
-</ul>
+    {{ item.name }}
+    <span>{{ item.airline.country }}</span> <br />
+    <img src="{{ item.airline.logo }}" alt="" /> <br />
+    <span>{{ item.airline.slogan }}</span> <br />
+  </p>
+</div>
 
-<pagination-controls (pageChange)="p = $event"></pagination-controls>
+<pagination-controls
+  class="pagi"
+  (pageChange)="gty((page = $event))"
+></pagination-controls>
 
 <router-outlet></router-outlet>
